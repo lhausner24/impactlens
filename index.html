@@ -67,6 +67,29 @@
       margin-bottom: 20px;
     }
 
+      #searchBarWrapper {
+      margin-top: 1rem; /* space above the search bar */
+      width: 90%;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #searchInput {
+      width: 100%;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      box-sizing: border-box;
+      outline: none;
+    }
+
+    #searchInput:focus {
+      border-color: #0419d1ff; /* match your dashboard blue */
+      box-shadow: 0 0 0 2px rgba(4, 25, 209, 0.2);
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
@@ -260,6 +283,9 @@
         <button type="submit">Submit Article</button>
       </form>
       <div id="articlesTable"></div>
+      <div id="searchBarWrapper">
+        <input type="text" id="searchInput" placeholder="Search articles..." />
+      </div>
     </div>
   </div>
 
@@ -340,7 +366,7 @@
 
       snapshot.forEach(doc => {
         const a = doc.data();
-        html += `<tr>
+        html += `<tr class="article-row">
           <td>${a.pmid || ""}</td>
           <td>${a.title}</td>
           <td>${a.authors.join(', ')}</td>
@@ -352,7 +378,19 @@
 
       html += `</table>`;
       tableDiv.innerHTML = html;
-    }
+
+      // --- Attach search functionality AFTER table is rendered ---
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.toLowerCase();
+      const articles = document.querySelectorAll('.article-row');
+
+      articles.forEach(article => {
+        const text = article.textContent.toLowerCase();
+        article.style.display = text.includes(query) ? '' : 'none';
+    });
+  });
+}
 
     // === Benchmarking Feature ===
     function computePercentile(sortedArray, value) {
@@ -375,6 +413,7 @@
       const q3Index = Math.floor(3*(array.length-1)/4);
       return [array[q1Index], array[q3Index]];
     }
+
 
     document.getElementById("computeBenchmark").addEventListener("click", async () => {
       const specialty = document.getElementById("benchmarkSpecialty").value;
