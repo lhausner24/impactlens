@@ -282,10 +282,11 @@
 	<input id="locationInput" placeholder="Location (Country) ex. United States, United Kingdom" required /><br>
         <button type="submit">Submit Article</button>
       </form>
-      <div id="articlesTable"></div>
       <div id="searchBarWrapper">
         <input type="text" id="searchInput" placeholder="Search articles..." />
       </div>
+      <div id="articlesTable"></div>
+
     </div>
   </div>
 
@@ -353,10 +354,12 @@
     async function displayArticles() {
       const snapshot = await getDocs(articlesCollection);
       const tableDiv = document.getElementById("articlesTable");
+      
 
       let html = `<table>
+        
         <tr>
-          <th>PMID</th>
+          <td>PMID</td>
           <th>Title</th>
           <th>Authors</th>
           <th>Specialty</th>
@@ -366,8 +369,12 @@
 
       snapshot.forEach(doc => {
         const a = doc.data();
+        let pmidHTML = a.pmid 
+        ? `<a href="https://pubmed.ncbi.nlm.nih.gov/${a.pmid}/" target="_blank">${a.pmid}</a>` 
+        : "";
+        
         html += `<tr class="article-row">
-          <td>${a.pmid || ""}</td>
+          <td>${pmidHTML}</td>
           <td>${a.title}</td>
           <td>${a.authors.join(', ')}</td>
           <td>${a.specialty}</td>
