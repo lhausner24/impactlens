@@ -86,6 +86,11 @@
          min-width: 0;
       }
 
+      #searchInput::placeholder {
+        color: #000000; /* change this to any color you want */
+        opacity: 1;  /* some browsers make placeholder semi-transparent by default */
+      }
+
       #filterSpecialty {
         flex: 1; 
         padding: 0.5rem 1rem;
@@ -93,6 +98,16 @@
         border: 1px solid #ccc;
         font-size: 1rem;
          min-width: 0;
+        -webkit-appearance: none; /* remove default style in Chrome/Safari */
+        -moz-appearance: none;    /* remove default style in Firefox */
+        appearance: none;         /* modern standard */
+        padding: 0.5rem 1rem;     /* match the search input */
+        text-indent: 0;           /* remove default extra indent */
+        text-align: left;         /* align text to left */
+      }
+      #filterSpecialty {
+        background: url('data:image/svg+xml;utf8,<svg fill="gray" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 0.5rem center;
+        background-size: 1rem;
       }
 
     #searchInput:focus {
