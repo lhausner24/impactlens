@@ -130,6 +130,19 @@
     th {
       background: #eee;
     }
+
+  #articlesTable, #benchmarkTable {
+  max-height: 300px; /* adjust height as needed */
+  overflow-y: auto;
+  display: block; /* necessary for scroll to work */
+  border: 1px solid #ccc; /* optional, for visual boundary */
+  border-radius: 5px; /* optional */
+}
+
+#articlesTable table, #benchmarkTable table {
+  width: 100%;
+  border-collapse: collapse;
+}
   </style>
 </head>
 <body>
